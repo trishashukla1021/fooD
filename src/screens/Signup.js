@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link,withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default function Signup() {
     const [credentials, setcredentials] = useState({ name: "", email: "", password: "", geolocation: "" })
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/createuser", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/createuser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,14 +81,9 @@ export default function Signup() {
         borderColor: '#dc3545', // Red border
     };
 
-    const btnDangerHoverStyle = {
-        backgroundColor: '#c82333', // Darker red on hover
-        borderColor: '#bd2130', // Darker red border on hover
-    };
+ 
 
-    const formTextStyle = {
-        color: '#6c757d', // Gray text
-    };
+ 
     return (
 
         <>
