@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Card from '../components/Card'
 export default function Home() {
-  const [search,setSearch]= useState('');
+  const [search, setSearch] = useState('');
   const [foodCat, setfoodcat] = useState([]);
   const [foodItem, setfooditem] = useState([]);
   const loadData = async () => {
@@ -13,7 +13,9 @@ export default function Home() {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        
+        'Access-Control-Allow-Origin': process.env.REACT_APP_API_URL,
+        'Access-Control-Allow-Credentials': 'true'
+
       }
     });
     response = await response.json();
@@ -33,7 +35,7 @@ export default function Home() {
             <div className="carousel-caption" style={{ zIndex: "10" }}>
 
               <div className="d-flex justify-content-center">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"  value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e) => { setSearch(e.target.value) }} />
               </div>
 
             </div>
@@ -59,20 +61,20 @@ export default function Home() {
       </div>
       <div className='container'>
         {
-          foodCat !=[]
+          foodCat != []
             ? foodCat.map((data) => {
               return (<div className='row mb-3'>
                 <div key={data._id} className='fs-3 m-3'>
                   {data.CategoryName}
                 </div>
                 <hr />
-                {foodItem != [] ? foodItem.filter((item) => item.CategoryName == data.CategoryName&&(item.name.toLowerCase().includes(search.toLocaleLowerCase()))).map(filterItems => {
+                {foodItem != [] ? foodItem.filter((item) => item.CategoryName == data.CategoryName && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))).map(filterItems => {
                   return (
                     <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
                       <Card foodItem={filterItems}
                         options={filterItems.options[0]}
-                        //imgsrc={filterItems.img}des={filterItems.description}
-                        ></Card>
+                      //imgsrc={filterItems.img}des={filterItems.description}
+                      ></Card>
                     </div>
                   )
                 }
