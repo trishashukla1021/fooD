@@ -12,7 +12,8 @@ export default function Home() {
     let response = await fetch(`${process.env.REACT_APP_API_URL}/api/foodData`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        
       }
     });
     response = await response.json();
